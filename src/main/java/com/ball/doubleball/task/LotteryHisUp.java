@@ -1,6 +1,7 @@
 package com.ball.doubleball.task;
 
 import com.ball.doubleball.common.utils.LotteryCache;
+import com.ball.doubleball.common.utils.SendmailUtil;
 import com.ball.doubleball.entity.LotteryResult;
 import com.ball.doubleball.mapper.common.LotteryResultMapper;
 import com.ball.doubleball.service.DoubleColorService;
@@ -54,6 +55,7 @@ public class LotteryHisUp {
                         if (count > 0) {
                             logger.info(newLotteryNo + "期开奖结果已收录...");
                             LotteryCache.setLastLotteryNo(lotteryNo);
+                            noticUserLotteryResult(lotteryResult);
                         } else {
                             logger.warn(newLotteryNo + "期开奖结果收录失败...");
                         }
@@ -71,5 +73,25 @@ public class LotteryHisUp {
             }
         }
         return false;
+    }
+
+    private void noticUserLotteryResult(LotteryResult lotteryResult) {
+        String title = "中国福利彩票双色球第" + lotteryResult.getLotteryNo() + "期开奖结果通知";
+        StringBuffer buffer = new StringBuffer("红色号码球: ");
+        buffer.append(lotteryResult.getBfOneBall() + " ");
+        buffer.append(lotteryResult.getBfTwoBall() + " ");
+        buffer.append(lotteryResult.getBfThreeBall() + " ");
+        buffer.append(lotteryResult.getBfFourBall() + " ");
+        buffer.append(lotteryResult.getBfFiveBall() + " ");
+        buffer.append(lotteryResult.getBfSixBall() + " ");
+        buffer.append("蓝色号码球: ");
+        buffer.append(lotteryResult.getAfOneBall());
+        String content = buffer.toString();
+        try {
+            SendmailUtil.sendEmail("1098769943@qq.com", title, content);
+        } catch (Exception e) {
+            logger.warn("邮件通知发送失败...");
+        }
+
     }
 }

@@ -55,6 +55,14 @@
             <artifactId>guava</artifactId>
             <version>23.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+        <!--发送邮件-->
+        <dependency>
+               <groupId>javax.mail</groupId>
+               <artifactId>mail</artifactId>
+               <version>1.4.7</version>
+        </dependency>
     </dependencies>
 
     <build>
