@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ball.doubleball.mapper.common.BallsRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.ball.doubleball.entity.BallsRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="ball_type" property="ballType" jdbcType="TINYINT" />
+    <result column="forecast_type" property="forecastType" jdbcType="TINYINT" />
+    <result column="ball_count" property="ballCount" jdbcType="INTEGER" />
+    <result column="ball_number" property="ballNumber" jdbcType="INTEGER" />
+    <result column="his_rate" property="hisRate" jdbcType="INTEGER" />
+    <result column="adopt" property="adopt" jdbcType="TINYINT" />
+    <result column="ts" property="ts" jdbcType="TIMESTAMP" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, parent_id, ball_type, forecast_type, ball_count, ball_number, his_rate, adopt, 
+    ts, author_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ball.doubleball.entity.BallsRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from balls_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from balls_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from balls_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ball.doubleball.entity.BallsRecordExample" >
+    delete from balls_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ball.doubleball.entity.BallsRecord" >
+    insert into balls_record (id, parent_id, ball_type, 
+      forecast_type, ball_count, ball_number, 
+      his_rate, adopt, ts, 
+      author_id)
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{ballType,jdbcType=TINYINT}, 
+      #{forecastType,jdbcType=TINYINT}, #{ballCount,jdbcType=INTEGER}, #{ballNumber,jdbcType=INTEGER}, 
+      #{hisRate,jdbcType=INTEGER}, #{adopt,jdbcType=TINYINT}, #{ts,jdbcType=TIMESTAMP}, 
+      #{authorId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ball.doubleball.entity.BallsRecord" >
+    insert into balls_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="ballType != null" >
+        ball_type,
+      </if>
+      <if test="forecastType != null" >
+        forecast_type,
+      </if>
+      <if test="ballCount != null" >
+        ball_count,
+      </if>
+      <if test="ballNumber != null" >
+        ball_number,
+      </if>
+      <if test="hisRate != null" >
+        his_rate,
+      </if>
+      <if test="adopt != null" >
+        adopt,
+      </if>
+      <if test="ts != null" >
+        ts,
+      </if>
+      <if test="authorId != null" >
+        author_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="ballType != null" >
+        #{ballType,jdbcType=TINYINT},
+      </if>
+      <if test="forecastType != null" >
+        #{forecastType,jdbcType=TINYINT},
+      </if>
+      <if test="ballCount != null" >
+        #{ballCount,jdbcType=INTEGER},
+      </if>
+      <if test="ballNumber != null" >
+        #{ballNumber,jdbcType=INTEGER},
+      </if>
+      <if test="hisRate != null" >
+        #{hisRate,jdbcType=INTEGER},
+      </if>
+      <if test="adopt != null" >
+        #{adopt,jdbcType=TINYINT},
+      </if>
+      <if test="ts != null" >
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ball.doubleball.entity.BallsRecordExample" resultType="java.lang.Integer" >
+    select count(*) from balls_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update balls_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ballType != null" >
+        ball_type = #{record.ballType,jdbcType=TINYINT},
+      </if>
+      <if test="record.forecastType != null" >
+        forecast_type = #{record.forecastType,jdbcType=TINYINT},
+      </if>
+      <if test="record.ballCount != null" >
+        ball_count = #{record.ballCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.ballNumber != null" >
+        ball_number = #{record.ballNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.hisRate != null" >
+        his_rate = #{record.hisRate,jdbcType=INTEGER},
+      </if>
+      <if test="record.adopt != null" >
+        adopt = #{record.adopt,jdbcType=TINYINT},
+      </if>
+      <if test="record.ts != null" >
+        ts = #{record.ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.authorId != null" >
+        author_id = #{record.authorId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update balls_record
+    set id = #{record.id,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      ball_type = #{record.ballType,jdbcType=TINYINT},
+      forecast_type = #{record.forecastType,jdbcType=TINYINT},
+      ball_count = #{record.ballCount,jdbcType=INTEGER},
+      ball_number = #{record.ballNumber,jdbcType=INTEGER},
+      his_rate = #{record.hisRate,jdbcType=INTEGER},
+      adopt = #{record.adopt,jdbcType=TINYINT},
+      ts = #{record.ts,jdbcType=TIMESTAMP},
+      author_id = #{record.authorId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ball.doubleball.entity.BallsRecord" >
+    update balls_record
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="ballType != null" >
+        ball_type = #{ballType,jdbcType=TINYINT},
+      </if>
+      <if test="forecastType != null" >
+        forecast_type = #{forecastType,jdbcType=TINYINT},
+      </if>
+      <if test="ballCount != null" >
+        ball_count = #{ballCount,jdbcType=INTEGER},
+      </if>
+      <if test="ballNumber != null" >
+        ball_number = #{ballNumber,jdbcType=INTEGER},
+      </if>
+      <if test="hisRate != null" >
+        his_rate = #{hisRate,jdbcType=INTEGER},
+      </if>
+      <if test="adopt != null" >
+        adopt = #{adopt,jdbcType=TINYINT},
+      </if>
+      <if test="ts != null" >
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authorId != null" >
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ball.doubleball.entity.BallsRecord" >
+    update balls_record
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      ball_type = #{ballType,jdbcType=TINYINT},
+      forecast_type = #{forecastType,jdbcType=TINYINT},
+      ball_count = #{ballCount,jdbcType=INTEGER},
+      ball_number = #{ballNumber,jdbcType=INTEGER},
+      his_rate = #{hisRate,jdbcType=INTEGER},
+      adopt = #{adopt,jdbcType=TINYINT},
+      ts = #{ts,jdbcType=TIMESTAMP},
+      author_id = #{authorId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
