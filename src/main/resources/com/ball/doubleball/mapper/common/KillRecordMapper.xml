@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ball.doubleball.mapper.common.KillRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.ball.doubleball.entity.KillRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lottery_no" property="lotteryNo" jdbcType="INTEGER" />
+    <result column="killer_id" property="killerId" jdbcType="INTEGER" />
+    <result column="killer_name" property="killerName" jdbcType="VARCHAR" />
+    <result column="kill_type" property="killType" jdbcType="TINYINT" />
+    <result column="kill_num" property="killNum" jdbcType="INTEGER" />
+    <result column="kill_his_rate" property="killHisRate" jdbcType="INTEGER" />
+    <result column="ts" property="ts" jdbcType="TIMESTAMP" />
+    <result column="adopt" property="adopt" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, lottery_no, killer_id, killer_name, kill_type, kill_num, kill_his_rate, ts, adopt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ball.doubleball.entity.KillRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from kill_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from kill_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from kill_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ball.doubleball.entity.KillRecordExample" >
+    delete from kill_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ball.doubleball.entity.KillRecord" >
+    insert into kill_record (id, lottery_no, killer_id, 
+      killer_name, kill_type, kill_num, 
+      kill_his_rate, ts, adopt
+      )
+    values (#{id,jdbcType=INTEGER}, #{lotteryNo,jdbcType=INTEGER}, #{killerId,jdbcType=INTEGER}, 
+      #{killerName,jdbcType=VARCHAR}, #{killType,jdbcType=TINYINT}, #{killNum,jdbcType=INTEGER}, 
+      #{killHisRate,jdbcType=INTEGER}, #{ts,jdbcType=TIMESTAMP}, #{adopt,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ball.doubleball.entity.KillRecord" >
+    insert into kill_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="lotteryNo != null" >
+        lottery_no,
+      </if>
+      <if test="killerId != null" >
+        killer_id,
+      </if>
+      <if test="killerName != null" >
+        killer_name,
+      </if>
+      <if test="killType != null" >
+        kill_type,
+      </if>
+      <if test="killNum != null" >
+        kill_num,
+      </if>
+      <if test="killHisRate != null" >
+        kill_his_rate,
+      </if>
+      <if test="ts != null" >
+        ts,
+      </if>
+      <if test="adopt != null" >
+        adopt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryNo != null" >
+        #{lotteryNo,jdbcType=INTEGER},
+      </if>
+      <if test="killerId != null" >
+        #{killerId,jdbcType=INTEGER},
+      </if>
+      <if test="killerName != null" >
+        #{killerName,jdbcType=VARCHAR},
+      </if>
+      <if test="killType != null" >
+        #{killType,jdbcType=TINYINT},
+      </if>
+      <if test="killNum != null" >
+        #{killNum,jdbcType=INTEGER},
+      </if>
+      <if test="killHisRate != null" >
+        #{killHisRate,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adopt != null" >
+        #{adopt,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ball.doubleball.entity.KillRecordExample" resultType="java.lang.Integer" >
+    select count(*) from kill_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update kill_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.lotteryNo != null" >
+        lottery_no = #{record.lotteryNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.killerId != null" >
+        killer_id = #{record.killerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.killerName != null" >
+        killer_name = #{record.killerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.killType != null" >
+        kill_type = #{record.killType,jdbcType=TINYINT},
+      </if>
+      <if test="record.killNum != null" >
+        kill_num = #{record.killNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.killHisRate != null" >
+        kill_his_rate = #{record.killHisRate,jdbcType=INTEGER},
+      </if>
+      <if test="record.ts != null" >
+        ts = #{record.ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.adopt != null" >
+        adopt = #{record.adopt,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update kill_record
+    set id = #{record.id,jdbcType=INTEGER},
+      lottery_no = #{record.lotteryNo,jdbcType=INTEGER},
+      killer_id = #{record.killerId,jdbcType=INTEGER},
+      killer_name = #{record.killerName,jdbcType=VARCHAR},
+      kill_type = #{record.killType,jdbcType=TINYINT},
+      kill_num = #{record.killNum,jdbcType=INTEGER},
+      kill_his_rate = #{record.killHisRate,jdbcType=INTEGER},
+      ts = #{record.ts,jdbcType=TIMESTAMP},
+      adopt = #{record.adopt,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ball.doubleball.entity.KillRecord" >
+    update kill_record
+    <set >
+      <if test="lotteryNo != null" >
+        lottery_no = #{lotteryNo,jdbcType=INTEGER},
+      </if>
+      <if test="killerId != null" >
+        killer_id = #{killerId,jdbcType=INTEGER},
+      </if>
+      <if test="killerName != null" >
+        killer_name = #{killerName,jdbcType=VARCHAR},
+      </if>
+      <if test="killType != null" >
+        kill_type = #{killType,jdbcType=TINYINT},
+      </if>
+      <if test="killNum != null" >
+        kill_num = #{killNum,jdbcType=INTEGER},
+      </if>
+      <if test="killHisRate != null" >
+        kill_his_rate = #{killHisRate,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adopt != null" >
+        adopt = #{adopt,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ball.doubleball.entity.KillRecord" >
+    update kill_record
+    set lottery_no = #{lotteryNo,jdbcType=INTEGER},
+      killer_id = #{killerId,jdbcType=INTEGER},
+      killer_name = #{killerName,jdbcType=VARCHAR},
+      kill_type = #{killType,jdbcType=TINYINT},
+      kill_num = #{killNum,jdbcType=INTEGER},
+      kill_his_rate = #{killHisRate,jdbcType=INTEGER},
+      ts = #{ts,jdbcType=TIMESTAMP},
+      adopt = #{adopt,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
